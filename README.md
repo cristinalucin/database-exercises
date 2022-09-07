@@ -1,0 +1,1 @@
+Database exercises for learning mySQL, both GUI and CLI.
