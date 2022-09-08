@@ -19,9 +19,9 @@ SELECT *
 FROM albums
 WHERE artist = 'Pink Floyd'; 
 /* b. The year Sgt. Pepper's Lonely Hearts Club Band was released*/
-/*SELECT release_date
+/*SELECT *
 FROM albums
-WHERE id = 15;*/
+WHERE release_date = (SELECT min(release_date) FROM albums)
 /* c. The genre for the album Nevermind */
 /*SELECT genre
 FROM albums
