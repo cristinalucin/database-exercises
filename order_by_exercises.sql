@@ -2,6 +2,11 @@ USE employees;
 SHOW tables;
 DESCRIBE employees;
 
+SELECT *
+FROM employees
+WHERE hire_date LIKE '199%'
+	AND birth_date LIKE '%12-25'
+ORDER BY birth_date, hire_date DESC
 
 /* Find all employees with first names 'Irena', 'Vidya', or 'Maya', and order your results returned by first name. 
 SELECT *
@@ -60,9 +65,10 @@ Sort the results so that the oldest employee who was hired last is the first res
 SELECT *
 FROM employees
 WHERE hire_date LIKE '199%'
-	AND hire_date LIKE '%12-25'
-ORDER BY birth_date DESC, hire_date ASC
+	AND birth_date LIKE '%12-25'
+ORDER BY birth_date, hire_date DESC
+
 Enter a comment with the number of employees returned, the name of the oldest employee who was hired last, 
 and the name of the youngest employee who was hired first.
-# 346 employees returned; Oldest employee hired last Lucian Menhoudj; Youngest employee hired first Lena Lenart
+# 362 employees returned; Oldest employee hired last Khun Bernini; Youngest employee hired first Douadi Pettis
 */
