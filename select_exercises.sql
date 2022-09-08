@@ -40,5 +40,5 @@ WHERE sales < 20;/*
 Why do these query results not include albums with a genre of "Hard rock" or "Progressive rock"?*/
 /*SELECT name
 FROM albums
-WHERE genre LIKE 'rock';
+WHERE genre LIKE '%Rock%';
 */
