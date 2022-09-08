@@ -27,6 +27,18 @@ WHERE id = 15;*/
 FROM albums
 WHERE name='nevermind';*/
 /* d.Which albums were released in the 1990s*/
+/*
 SELECT name
 FROM albums
-WHERE release_date >= '1990' and < '2000';
+WHERE release_date > 1989 AND release_date < 2000;
+*/
+/* e. Which albums had less than 20 million certified sales */
+/* SELECT name
+FROM albums
+WHERE sales < 20;/*
+/* f. All the albums with a genre of "Rock". 
+Why do these query results not include albums with a genre of "Hard rock" or "Progressive rock"?*/
+/*SELECT name
+FROM albums
+WHERE genre LIKE 'rock';
+*/
