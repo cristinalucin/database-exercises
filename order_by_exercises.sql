@@ -2,12 +2,6 @@ USE employees;
 SHOW tables;
 DESCRIBE employees;
 
-SELECT *
-FROM employees
-WHERE hire_date LIKE '199%'
-	AND birth_date LIKE '%12-25'
-ORDER BY birth_date, hire_date DESC
-
 /* Find all employees with first names 'Irena', 'Vidya', or 'Maya', and order your results returned by first name. 
 SELECT *
 FROM employees
@@ -22,7 +16,7 @@ Find all employees with first names 'Irena', 'Vidya', or 'Maya', and order your 
 SELECT *
 FROM employees
 WHERE first_name IN ('Irena', 'Vidya', 'Maya')
-ORDER BY first_name, last_name;
+ORDER BY first_name, last_name
 
 In your comments, answer: What was the first and last name in the first row of the results? 
 #Irena Acton
@@ -41,11 +35,12 @@ What was the first and last name of the last person in the table?
 #Maya Zyda
 
 Write a query to to find all employees whose last name starts and ends with 'E'. Sort the results by their employee number. 
+
 SELECT *
 FROM employees
-WHERE last_name LIKE 'E%' 
-	AND last_name LIKE '%E'
-ORDER BY emp_no;
+WHERE last_name LIKE "E%E"
+ORDER BY emp_no
+
 Enter a comment with the number of employees returned, the first employee number and their first and last name,
 and the last employee number with their first and last name:
 # 899 employees returned; first number 10021 Ramzi Erde; last number 499648 Tadahiro Erde
