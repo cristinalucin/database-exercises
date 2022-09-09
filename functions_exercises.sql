@@ -2,9 +2,8 @@ USE employees;
 SHOW tables;
 DESCRIBE employees;
 
-SELECT CONCAT(UPPER(first_name), ' ', UPPER(last_name)) AS full_name
+SELECT CONCAT(SUBSTR(first_name,1,1), SUBSTR(last_name,1,4), "_", SUBSTR(birth_date,6,2), SUBSTR(birth_date,3,2))
 FROM employees
-WHERE last_name LIKE "E%E"
 
 /*
 Write a query to to find all employees whose last name starts and ends with 'E'. 
@@ -42,6 +41,6 @@ A username should be all lowercase, and consist of the first character of the em
 the first 4 characters of the employees last name, an underscore, the month the employee was born, 
 and the last two digits of the year that they were born. Below is an example of what the first 10 rows will look like:
 
-SELECT CONCAT(SUBSTR(first_name,1,1), SUBSTR(last_name,1,4), " ", birth_date)
+SELECT CONCAT(SUBSTR(first_name,1,1), SUBSTR(last_name,1,4), "_", SUBSTR(birth_date,6,2), SUBSTR(birth_date,3,2))
 FROM employees
 */
