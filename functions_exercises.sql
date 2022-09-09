@@ -2,8 +2,19 @@ USE employees;
 SHOW tables;
 DESCRIBE employees;
 
-SELECT CONCAT(SUBSTR(LOWER(first_name),1,1), SUBSTR(LOWER(last_name),1,4), "_", SUBSTR(birth_date,6,2), SUBSTR(birth_date,3,2))
-FROM employees
+SELECT first_name,
+	last_name,
+	birth_date,
+    LOWER(
+		CONCAT(
+		SUBSTR(first_name,1, 1),
+        SUBSTR(last_name, 1, 4),
+        '_',
+        SUBSTR(birth_date, 6, 2),
+        SUBSTR(birth_date, 3, 2)
+        )
+	) AS username
+FROM employees;
 
 /*
 Write a query to to find all employees whose last name starts and ends with 'E'. 
@@ -23,17 +34,20 @@ Find all employees hired in the 90s and born on Christmas.
 Use datediff() function to find how many days they have been working at the company 
 (Hint: You will also need to use NOW() or CURDATE()),
 
-SELECT datediff(now(), hire_date)
+SELECT first_name, last_name,
+	DATEDIFF(NOW(), hire_date) AS days_with_company
 FROM employees
 WHERE hire_date LIKE '199%'
-	AND birth_date LIKE '%12-25'
-
+	AND birth_date LIKE '%-12-25'
 
 Find the smallest and largest current salary from the salaries table.
 
-SELECT min(SALARY)
+SELECT MIN(Salary), 
+	MAX(Salary)
+FROM salaries
+WHERE to_date > CURDATE()
+
 #38623
-SELECT max(SALARY)
 #158220
 
 Use your knowledge of built in SQL functions to generate a username for all of the employees. 
