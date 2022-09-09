@@ -2,8 +2,8 @@ USE employees;
 SHOW tables;
 DESCRIBE employees;
 
-SELECT CONCAT(SUBSTR(first_name,1,1), SUBSTR(last_name,1,4), " ", birth_date)
-FROM employees
+SELECT max(SALARY)
+FROM salaries
 
 
 /*
@@ -29,7 +29,9 @@ WHERE hire_date LIKE '199%'
 Find the smallest and largest current salary from the salaries table.
 
 SELECT min(SALARY)
+#38623
 SELECT max(SALARY)
+#158220
 
 Use your knowledge of built in SQL functions to generate a username for all of the employees. 
 A username should be all lowercase, and consist of the first character of the employees first name, 
