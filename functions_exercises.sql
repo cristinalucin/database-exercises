@@ -2,7 +2,7 @@ USE employees;
 SHOW tables;
 DESCRIBE employees;
 
-SELECT CONCAT(SUBSTR(first_name,1,1), SUBSTR(last_name,1,4), "_", SUBSTR(birth_date,6,2), SUBSTR(birth_date,3,2))
+SELECT CONCAT(SUBSTR(LOWER(first_name),1,1), SUBSTR(LOWER(last_name),1,4), "_", SUBSTR(birth_date,6,2), SUBSTR(birth_date,3,2))
 FROM employees
 
 /*
@@ -41,6 +41,6 @@ A username should be all lowercase, and consist of the first character of the em
 the first 4 characters of the employees last name, an underscore, the month the employee was born, 
 and the last two digits of the year that they were born. Below is an example of what the first 10 rows will look like:
 
-SELECT CONCAT(SUBSTR(first_name,1,1), SUBSTR(last_name,1,4), "_", SUBSTR(birth_date,6,2), SUBSTR(birth_date,3,2))
+SELECT CONCAT(SUBSTR(LOWER(first_name),1,1), SUBSTR(LOWER(last_name),1,4), "_", SUBSTR(birth_date,6,2), SUBSTR(birth_date,3,2))
 FROM employees
 */
