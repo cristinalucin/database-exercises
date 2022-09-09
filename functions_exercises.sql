@@ -2,9 +2,9 @@ USE employees;
 SHOW tables;
 DESCRIBE employees;
 
-SELECT max(SALARY)
-FROM salaries
-
+SELECT CONCAT(UPPER(first_name), ' ', UPPER(last_name)) AS full_name
+FROM employees
+WHERE last_name LIKE "E%E"
 
 /*
 Write a query to to find all employees whose last name starts and ends with 'E'. 
@@ -15,6 +15,10 @@ FROM employees
 WHERE last_name LIKE "E%E"
 
 Convert the names produced in your last query to all uppercase.
+
+SELECT CONCAT(UPPER(first_name), ' ', UPPER(last_name)) AS full_name
+FROM employees
+WHERE last_name LIKE "E%E"
 
 Find all employees hired in the 90s and born on Christmas. 
 Use datediff() function to find how many days they have been working at the company 
