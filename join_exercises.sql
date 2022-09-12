@@ -1,7 +1,20 @@
 USE employees;
 
-#9 Determine the average salary for each department. Use all salary information and round your results
+#10 Determine the average salary for each department. Use all salary information and round your results
 
+SELECT d.dept_name AS department_Name, ROUND(AVG(s.salary)) AS average_salary
+FROM salaries as s
+JOIN dept_emp as de
+ON s.emp_no = de.emp_no
+JOIN departments as d
+ON de.dept_no = d.dept_no
+GROUP BY department_Name
+ORDER BY average_salary DESC
+
+
+
+
+/*
 SELECT d.dept_name AS Department_Name, AVG(s.salary)
 FROM dept_emp as de
 JOIN salaries as s
@@ -11,7 +24,7 @@ ON de.dept_no = d.dept_no
 WHERE s.to_date = '9999-01-01'
 	AND de.to_date = '9999-01-01'
 GROUP BY Department_Name
-
+*/
 
 #2 Using the example in the Associative Table Joins section as a guide, write a query that shows each department along 
 # with the name of the current manager for that department.
@@ -123,4 +136,16 @@ JOIN departments as d
 ON dm.dept_no = d.dept_no
 WHERE dm.to_date = '9999-01-01'
 	AND s.to_date = '9999-01-01'
+*/
+
+#10 Determine the average salary for each department. Use all salary information and round your results
+/*
+SELECT d.dept_name AS department_Name, ROUND(AVG(s.salary)) AS average_salary
+FROM salaries as s
+JOIN dept_emp as de
+ON s.emp_no = de.emp_no
+JOIN departments as d
+ON de.dept_no = d.dept_no
+GROUP BY department_Name
+ORDER BY average_salary DESC
 */
