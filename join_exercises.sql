@@ -1,82 +1,119 @@
 USE employees;
-DESCRIBE employees;
 
-# 5. Find the current salary of all current managers.
+#9 Determine the average salary for each department. Use all salary information and round your results
 
-SELECT DISTINCT CONCAT_WS(' ', e.first_name, e.last_name) AS name, d.dept_name AS department_name, s.salary AS salary
-FROM employees as e
+SELECT d.dept_name AS Department_Name, AVG(s.salary)
+FROM dept_emp as de
 JOIN salaries as s
-ON e.emp_no = s.emp_no
-JOIN dept_manager as dm
-ON s.emp_no = dm.emp_no
+ON de.emp_no = s.emp_no
 JOIN departments as d
-ON dm.dept_no = d.dept_no
-WHERE dm.to_date = '9999-01-01'
+ON de.dept_no = d.dept_no
+WHERE s.to_date = '9999-01-01'
+	AND de.to_date = '9999-01-01'
+GROUP BY Department_Name
 
 
+#2 Using the example in the Associative Table Joins section as a guide, write a query that shows each department along 
+# with the name of the current manager for that department.
 
-#2
 /*
-USE join_example_db;
-SELECT u.name AS name, r.id as role
-FROM users as u
-JOIN roles as r
-ON u.role_id = r.id
-*/
-
-#3
-/*
-USE join_example_db;
-SELECT r.name as role_name, COUNT(u.id) as num_of_users
-FROM roles as r
-LEFT JOIN users as u
-ON r.id = u.role_id
-GROUP BY role_name*/
-
-#EMPLOYEES DATABASE
-
-#Using the example in the Associative Table Joins section as a guide, 
-#write a query that shows each department along with the name of the current manager for that department.
-
-/*SELECT CONCAT (e.first_name, ' ', e.last_name) AS Department_Manager, d.dept_name AS Department_Name
+SELECT CONCAT(e.first_name, ' ', e.last_name) AS employee_name, d.dept_name as department_name
 FROM employees as e
 JOIN dept_manager as dm
 ON e.emp_no = dm.emp_no
-JOIN departments as d
+RIGHT JOIN departments as d
 ON dm.dept_no = d.dept_no
 WHERE dm.to_date = '9999-01-01'
 */
 
-#3. Find the name of all departments currently managed by women.
+# 3 Find the name of all departments currently managed by women.
 
-/* SELECT CONCAT (e.first_name, ' ', e.last_name) AS Department_Manager, d.dept_name AS Department_Name
+/*
+SELECT d.dept_name AS Department_Name, CONCAT(e.first_name, ' ', e.last_name) AS Manager_name
 FROM employees as e
 JOIN dept_manager as dm
 ON e.emp_no = dm.emp_no
-JOIN departments as d
+RIGHT JOIN departments as d
 ON dm.dept_no = d.dept_no
-WHERE dm.to_date = '9999-01-01'
-AND e.gender = 'F'
+WHERE e.gender = 'F'
+	AND dm.to_date = '9999-01-01'
+ORDER BY Department_Name
 */
 
-#4. Find the current titles of employees currently working in the Customer Service department.
-
+#4 Find the current titles of employees currently working in the Customer Service department.
 /*
-SELECT CONCAT(COUNT(t.emp_no) as Employee_ID), t.title as Job_title, d.dept_name AS department_name
+SELECT t.title AS Title, COUNT(t.title) AS number_of_employees
 FROM titles as t
 JOIN dept_emp as de
 ON t.emp_no = de.emp_no
 JOIN departments as d
 ON de.dept_no = d.dept_no
 WHERE t.to_date = '9999-01-01'
-AND d.dept_name LIKE 'Customer Service'
-GROUP BY Job_title
+	AND de.dept_no = 'd009'
+GROUP BY Title
+ORDER BY Title
+*/
+/*
+SELECT d.dept_name as Department_Name, CONCAT(e.first_name, ' ', e.last_name) AS full_name, s.salary AS Salary
+FROM employees AS e
+JOIN salaries AS s
+ON e.emp_no = s.emp_no
+JOIN dept_manager AS dm
+ON s.emp_no = dm.emp_no
+JOIN departments AS d
+ON dm.dept_no = d.dept_no
+WHERE dm.to_date = '9999-01-01'
+	AND s.to_date = '9999-01-01'
 */
 
-# 5. Find the current salary of all current managers.
+#6 Find the number of current employees in each department.
+/*
+SELECT d.dept_no AS department_number,
+d.dept_name AS  department_name,
+COUNT(de.emp_no) AS num_employees
+FROM departments as d
+JOIN dept_emp as de
+ON d.dept_no = de.dept_no
+WHERE de.to_date = '9999-01-01'
+GROUP BY department_number
+ORDER BY department_number
+*/
+
+# 7
+/*
+SELECT d.dept_no AS department_number,
+d.dept_name AS  department_name,
+COUNT(de.emp_no) AS num_employees,
+AVG(s.salary) AS average_salary
+FROM departments as d
+JOIN dept_emp as de
+ON d.dept_no = de.dept_no
+JOIN salaries as s
+ON de.emp_no = s.emp_no
+WHERE de.to_date = '9999-01-01'
+	AND s.to_date = '9999-01-01'
+GROUP BY department_number
+ORDER BY average_salary
+*/
+
+#8 Who is the highest paid employee in the Marketing department?
+/*
+SELECT e.first_name AS first_name, e.last_name AS last_name, s.salary AS salary
+FROM employees AS e
+JOIN salaries as s
+ON e.emp_no = s.emp_no
+JOIN dept_emp AS de
+ON s.emp_no = de.emp_no
+JOIN departments as d
+ON de.dept_no = d.dept_no
+WHERE d.dept_no = 'd001'
+ORDER BY s.salary DESC
+*/
+
+#9 Which current department manager has the highest salary?
 
 /*
-SELECT CONCAT_WS(' ', e.first_name, e.last_name) AS name, d.dept_name AS department_name, s.salary AS salary
+SELECT e.first_name AS first_name,e.last_name AS last_name, s.salary AS salary, d.dept_name AS dept_name
 FROM employees as e
 JOIN salaries as s
 ON e.emp_no = s.emp_no
@@ -85,10 +122,5 @@ ON s.emp_no = dm.emp_no
 JOIN departments as d
 ON dm.dept_no = d.dept_no
 WHERE dm.to_date = '9999-01-01'
-ORDER BY name
+	AND s.to_date = '9999-01-01'
 */
-
-
-
-
-
