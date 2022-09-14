@@ -29,13 +29,7 @@ ALTER TABLE employees_with_departments ADD full_name VARCHAR (30);
 
 #b. Update the table so that full name column contains the correct data
 
-SELECT *
-FROM employees_with_departments;
-
 UPDATE employees_with_departments SET full_name = CONCAT(first_name, ' ', last_name);
-
-SELECT *
-FROM employees_with_departments;
 
 #c. Remove the first_name and last_name columns from the table.
 
@@ -53,7 +47,7 @@ ALTER TABLE employees_with_departments DROP COLUMN first_name, DROP COLUMN last_
 USE mirzakhani_1938;
 
 CREATE TEMPORARY TABLE sakila_payments AS (
-SELECT *
+SELECT payment_id, customer_id, staff_id, rental_id, amount, payment_date, last_update
 FROM sakila.payment
 );
 
@@ -61,15 +55,63 @@ SELECT *
 FROM sakila_payments
 LIMIT 50;
 
-ALTER TABLE sakila_payments ADD amount_in_pennies INT;
-
-SELECT *
-FROM sakila_payments
-LIMIT 50;
+ALTER TABLE sakila_payments ADD amount_in_pennies INT NOT NULL;
 
 UPDATE sakila_payments SET amount_in_pennies = amount*100;
 
+##3 Find out how the current average pay in each department compares to the overall current pay for everyone at the 
+## company. In order to make the comparison easier, you should use the Z-score for salaries. In terms of salary, 
+## what is the best department right now to work for? The worst?
 
+#4
+/*
+USE mirzakhani_1938;
+
+#Create temporary table
+
+CREATE TEMPORARY TABLE salaries_compare AS (
+SELECT d.dept_name, s.salary
+FROM employees.dept_emp de
+JOIN employees.departments d ON de.dept_no = d.dept_no
+JOIN employees.salaries s ON de.emp_no = s.emp_no
+WHERE de.to_date > CURDATE() AND s.to_date > CURDATE()
+);
+
+ALTER TABLE salaries_compare ADD total_avg DECIMAL(10, 2);
+UPDATE salaries_compare SET total_avg = (SELECT AVG(salary) FROM employees.salaries WHERE to_date > CURDATE());
+
+ALTER TABLE salaries_compare ADD std_current_salaries DECIMAL(10, 2);
+UPDATE salaries_compare SET std_current_salaries = (SELECT STD(salary) FROM employees.salaries WHERE to_date > curdate());
+
+ALTER TABLE salaries_compare ADD zscore DECIMAL(10, 2);
+UPDATE salaries_compare SET zscore = (salary - total_avg) / std_current_salaries;
+
+#Create current table
+
+SELECT dept_name, 
+		AVG(salary) as 'salary', 
+		AVG(total_avg) as mean, 
+        AVG(std_current_salaries) as 'standard deviation',
+        AVG(zscore) as 'zscore'
+FROM salaries_compare
+GROUP BY dept_name
+ORDER BY zscore DESC;
+
+SELECT salary,
+    (salary - (SELECT AVG(salary) FROM salaries))
+    /
+    (SELECT stddev(salary) FROM salaries) AS zscore
+FROM salaries;
+
+/*
+
+ALTER TABLE current_info ADD overall_average FLOAT (10,2)
+ALTER TABLE current_info ADD overall_STD FLOAT (10,2)
+ALTER TABLE current_info ADD zscore FLOAT (10,2);
+
+UPDATE current_info SET overall_average = (SELECT avg_salary FROM overall_aggregates)
+UPDATE current_info SET overall_std = (SELECT std_salary FROM overall_aggregates);
+*/
 
 
 
