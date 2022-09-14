@@ -61,11 +61,15 @@ SELECT *
 FROM sakila_payments
 LIMIT 50;
 
-ALTER TABLE sakila_payments MODIFY amount INT;
+ALTER TABLE sakila_payments ADD amount_in_pennies INT;
 
 SELECT *
 FROM sakila_payments
-LIMIT 50
+LIMIT 50;
+
+UPDATE sakila_payments SET amount_in_pennies = amount*100;
+
+
 
 
 
