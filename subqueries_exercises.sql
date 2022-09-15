@@ -88,6 +88,8 @@ SELECT (
     - (SELECT STD(salary) FROM salaries WHERE to_date > CURDATE())))
     
  / (SELECT COUNT(*) FROM salaries WHERE to_date > CURDATE()) * 100;
+ 
+ #83
     
 /*
 BONUS 1
