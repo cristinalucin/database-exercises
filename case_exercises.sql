@@ -25,5 +25,38 @@ SELECT CONCAT(e.first_name, ' ', e.last_name) AS customer_name,
     END AS alpha_group
 FROM employees e
 */
+/*
+#3
+-- How many employees (current or previous) were born in each decade?
+
+SELECT
+    COUNT(CASE WHEN birth_date BETWEEN '1950-01-01' AND '1959-12-31' THEN birth_date ELSE NULL END) AS '50s',
+    COUNT(CASE WHEN birth_date BETWEEN '1960-01-01' AND '1969-12-31' THEN birth_date ELSE NULL END) AS '60s'
+FROM employees;
+
+# Another way:
+SELECT
+    CONCAT(SUBSTR(birth_date, 1, 3), '0') as decade,
+    COUNT(*)
+FROM employees
+GROUP BY decade;
+
+#4 What is the current average salary for each of the following department
+## groups: R&D, Sales & Marketing, Prod & QM, Finance & HR, Customer Service?
+
+SELECT
+    CASE
+        WHEN d.dept_name IN ('Research', 'Development') THEN 'R&D'
+        WHEN d.dept_name IN ('Sales', 'Marketing') THEN 'Sales & Marketing'
+        WHEN d.dept_name IN ('Production', 'Quality Management') THEN 'Prod & QM'
+        WHEN d.dept_name IN ('Finance', 'Human Resources') THEN 'Finanace & HR'
+        ELSE d.dept_name
+    END AS dept_group, salary
+FROM departments d
+JOIN dept_emp de USING (dept_no)
+JOIN salaries s USING (emp_no)
+WHERE s.to_date > NOW() AND de.to_date > NOW()
+;
+*/
 
 
